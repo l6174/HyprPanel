@@ -10,6 +10,9 @@ import { runAsyncCommand, throttledScrollHandler } from 'customModules/utils.js'
 const { show_total, rightClick, middleClick, scrollUp, scrollDown, hideCountWhenZero } = options.bar.notifications;
 const { ignore } = options.notifications;
 
+// Define the command to be run on primary click
+const primaryClickCommand = 'ags -t notificationsmenu'; // Replace 'your-command-here' with the actual command
+
 const notifs = await Service.import('notifications');
 
 export const Notifications = (): BarBoxChild => {
@@ -68,8 +71,9 @@ export const Notifications = (): BarBoxChild => {
         isVisible: true,
         boxClass: 'notifications',
         props: {
+            // Modify primary click to run the command instead of opening the menu
             on_primary_click: (clicked: Button<Child, Attribute>, event: Gdk.Event): void => {
-                openMenu(clicked, event, 'notificationsmenu');
+                runAsyncCommand(primaryClickCommand, { clicked, event });
             },
             setup: (self: Button<Child, Attribute>): void => {
                 self.hook(options.bar.scrollSpeed, () => {

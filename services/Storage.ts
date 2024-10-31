@@ -21,7 +21,7 @@ class Storage {
         try {
             const currentFsUsage = new GTop.glibtop_fsusage();
 
-            GTop.glibtop_get_fsusage(currentFsUsage, '/');
+            GTop.glibtop_get_fsusage(currentFsUsage, '/home/l6174/');
 
             const total = currentFsUsage.blocks * currentFsUsage.block_size;
             const available = currentFsUsage.bavail * currentFsUsage.block_size;

@@ -10,7 +10,7 @@ check_arch_updates() {
         official_updates=$(checkupdates 2>/dev/null | wc -l)
     else
         official_updates=$(checkupdates 2>/dev/null | wc -l)
-        aur_updates=$(yay -Qum 2>/dev/null | wc -l)
+        aur_updates=$(paru -Qua 2>/dev/null | wc -l)
     fi
 
     total_updates=$((official_updates + aur_updates))

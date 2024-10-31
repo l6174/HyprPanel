@@ -6,11 +6,12 @@
   .osd-container {
     margin: $osd-margins;
     opacity: $osd-opacity * 0.01;
+    border: 3px solid #24273a;
+    border-radius: 10em;
   }
 
   .osd-label-container {
     background: $osd-bar_container;
-
     border-radius: if($osd-orientation =="vertical", $osd-radius $osd-radius 0em 0em, 0em $osd-radius $osd-radius 0em);
 
     .osd-label {

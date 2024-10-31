@@ -11,7 +11,7 @@ export const CloseButton = (notif: Notification, notifs: Notifications): Button<
         },
         child: Widget.Label({
             class_name: 'txt-icon notif-close',
-            label: '󰅜',
+            label: '󰅙',
             hpack: 'center',
         }),
     });

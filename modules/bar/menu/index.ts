@@ -1,5 +1,4 @@
 import Gdk from 'gi://Gdk?version=3.0';
-import { openMenu } from '../utils.js';
 import options from 'options';
 import { BarBoxChild } from 'lib/types/bar.js';
 import Button from 'types/widgets/button.js';
@@ -7,6 +6,9 @@ import { Attribute, Child } from 'lib/types/widget.js';
 import { runAsyncCommand, throttledScrollHandler } from 'customModules/utils.js';
 
 const { rightClick, middleClick, scrollUp, scrollDown } = options.bar.launcher;
+
+// Define the command to be run on primary click
+const primaryClickCommand = 'ags -t dashboardmenu'; // Replace 'your-command-here' with the actual command
 
 const Menu = (): BarBoxChild => {
     return {
@@ -28,8 +30,9 @@ const Menu = (): BarBoxChild => {
         isVisible: true,
         boxClass: 'dashboard',
         props: {
+            // Modify primary click to run the command instead of opening the menu
             on_primary_click: (clicked: Button<Child, Attribute>, event: Gdk.Event): void => {
-                openMenu(clicked, event, 'dashboardmenu');
+                runAsyncCommand(primaryClickCommand, { clicked, event });
             },
             setup: (self: Button<Child, Attribute>): void => {
                 self.hook(options.bar.scrollSpeed, () => {

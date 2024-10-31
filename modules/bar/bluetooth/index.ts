@@ -15,12 +15,21 @@ const Bluetooth = (): BarBoxChild => {
         class_name: 'bar-button-icon bluetooth txt-icon bar',
     });
 
-    const btText = Widget.Label({
-        label: Utils.merge([bluetooth.bind('enabled'), bluetooth.bind('connected_devices')], (btEnabled, btDevices) => {
-            return btEnabled && btDevices.length ? ` Connected (${btDevices.length})` : btEnabled ? 'On' : 'Off';
-        }),
-        class_name: 'bar-button-label bluetooth',
-    });
+const btText = Widget.Label({
+    label: Utils.merge([bluetooth.bind('enabled'), bluetooth.bind('connected_devices')], (btEnabled, btDevices) => {
+        // Check if Bluetooth is enabled
+        if (!btEnabled) {
+            return 'Off';
+        }
+        // Show the name of the connected device if one is connected
+        if (btDevices.length > 0) {
+            return `${btDevices[0].alias}`; // Assumes `name` property holds the device's name
+        }
+        // If Bluetooth is on but no device is connected, just show "On"
+        return 'On';
+    }),
+    class_name: 'bar-button-label bluetooth',
+});
 
     return {
         component: Widget.Box({

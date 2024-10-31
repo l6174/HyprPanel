@@ -22,6 +22,7 @@ export default ({
     child,
     transition,
     exclusivity = 'ignore' as Exclusivity,
+    anchorPosition = 'left',
     ...props
 }: DropdownMenuProps): Window<Child, Attribute> =>
     Widget.Window({
@@ -32,7 +33,7 @@ export default ({
         keymode: 'on-demand',
         exclusivity,
         layer: 'top',
-        anchor: location.bind('value').as((ln) => [ln, 'left']),
+        anchor: location.bind('value').as((ln) => [ln, anchorPosition]),
         child: Widget.EventBox({
             class_name: 'parent-event',
             on_primary_click: () => App.closeWindow(name),

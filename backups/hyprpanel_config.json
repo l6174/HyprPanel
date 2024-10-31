@@ -1,0 +1,187 @@
+{
+  "bar.customModules.updates.pollingInterval": 1440000,
+  "theme.bar.floating": true,
+  "theme.bar.buttons.enableBorders": true,
+  "theme.bar.buttons.workspaces.enableBorder": false,
+  "theme.bar.scaling": 68,
+  "bar.media.truncation_size": 30,
+  "bar.bluetooth.label": true,
+  "theme.bar.buttons.workspaces.fontSize": "1.2em",
+  "bar.workspaces.show_numbered": false,
+  "bar.workspaces.ignored": "[5-9]",
+  "theme.font.name": "SF Pro Display",
+  "terminal": "kitty",
+  "theme.font.weight": 500,
+  "theme.bar.border_radius": "0.4em",
+  "theme.bar.buttons.radius": "10em",
+  "bar.workspaces.workspaces": 4,
+  "bar.workspaces.hideUnoccupied": false,
+  "theme.bar.buttons.padding_x": "0.7rem",
+  "theme.bar.margin_sides": "0.5em",
+  "theme.bar.buttons.borderSize": "0.2em",
+  "theme.bar.menus.monochrome": false,
+  "scalingPriority": "gdk",
+  "bar.layouts": {
+    "0": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "media",
+        "windowtitle"
+      ],
+      "middle": [
+        "clock"
+      ],
+      "right": [
+        "volume",
+        "network",
+        "bluetooth",
+        "battery",
+        "systray",
+        "updates",
+        "notifications",
+        "power"
+      ]
+    },
+    "1": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    },
+    "2": {
+      "left": [
+        "dashboard",
+        "workspaces",
+        "windowtitle"
+      ],
+      "middle": [
+        "media"
+      ],
+      "right": [
+        "volume",
+        "clock",
+        "notifications"
+      ]
+    }
+  },
+  "theme.bar.outer_spacing": "0",
+  "menus.clock.time.military": true,
+  "menus.clock.time.hideSeconds": true,
+  "bar.network.truncation_size": 15,
+  "bar.clock.format": "%a, %b %d",
+  "bar.media.show_active_only": true,
+  "bar.notifications.show_total": false,
+  "theme.osd.radius": "10em",
+  "theme.osd.margins": "70px 0px 0px 0px",
+  "theme.osd.orientation": "horizontal",
+  "theme.osd.location": "top",
+  "menus.dashboard.powermenu.avatar.image": "/home/l6174/Pictures/Profile/Image.png",
+  "theme.bar.menus.menu.dashboard.profile.radius": "10em",
+  "theme.bar.menus.opacity": 100,
+  "theme.bar.transparent": true,
+  "wallpaper.pywal": false,
+  "theme.bar.buttons.monochrome": false,
+  "theme.osd.scaling": 75,
+  "theme.notification.scaling": 70,
+  "theme.bar.menus.menu.dashboard.scaling": 65,
+  "theme.bar.menus.menu.notifications.scaling": 75,
+  "theme.bar.menus.menu.dashboard.confirmation_scaling": 80,
+  "theme.bar.menus.menu.media.scaling": 70,
+  "theme.bar.menus.menu.clock.scaling": 65,
+  "theme.bar.menus.menu.battery.scaling": 80,
+  "theme.bar.menus.menu.bluetooth.scaling": 80,
+  "theme.bar.menus.menu.network.scaling": 80,
+  "theme.bar.menus.menu.volume.scaling": 80,
+  "theme.bar.menus.menu.power.scaling": 70,
+  "theme.bar.menus.card_radius": "1.2em",
+  "theme.bar.menus.border.radius": "1.2em",
+  "theme.bar.menus.slider.slider_radius": "10em",
+  "theme.bar.menus.switch.slider_radius": "10em",
+  "theme.bar.menus.switch.radius": "10em",
+  "theme.bar.menus.slider.progress_radius": "10em",
+  "menus.dashboard.powermenu.avatar.name": "L Lawliet",
+  "menus.dashboard.directories.left.directory2.label": "󰉏   Videos",
+  "menus.dashboard.directories.left.directory3.label": "󰚝   Projects",
+  "menus.dashboard.directories.right.directory1.label": "󱧶   Documents",
+  "menus.dashboard.directories.right.directory2.label": "󰉏   Pictures",
+  "menus.dashboard.directories.right.directory3.label": "󱂵   Home",
+  "menus.dashboard.directories.left.directory1.label": "󰉍   Downloads",
+  "theme.osd.muted_zero": false,
+  "theme.notification.border_radius": "1.5em",
+  "theme.bar.menus.menu.notifications.height": "70em",
+  "bar.workspaces.showAllActive": true,
+  "bar.workspaces.show_icons": false,
+  "bar.workspaces.spacing": 1,
+  "theme.bar.margin_top": "0.25em",
+  "menus.dashboard.controls.enabled": true,
+  "menus.dashboard.shortcuts.enabled": true,
+  "menus.dashboard.shortcuts.left.shortcut1.command": "launch-zen",
+  "menus.dashboard.shortcuts.left.shortcut1.tooltip": "Zen Browser",
+  "menus.dashboard.shortcuts.left.shortcut2.command": "spotify",
+  "menus.dashboard.shortcuts.left.shortcut3.command": "webcord",
+  "menus.dashboard.shortcuts.left.shortcut4.command": "bash -c \"$HOME/.config/rofi/bin/launcher\"",
+  "menus.dashboard.shortcuts.right.shortcut3.command": "bash -c \"sleep 0.5 && grim $HOME/Pictures/Screenshots/$(date +'%s_grim.png') && notify-send 'Captured Screen'\"",
+  "bar.clock.icon": "󰥔",
+  "theme.bar.menus.border.size": "0.22em",
+  "bar.customModules.updates.updateCommand": "$HOME/.config/ags/scripts/checkUpdates.sh -arch",
+  "bar.customModules.updates.icon": "",
+  "bar.customModules.updates.leftClick": "kitty -e arch-update",
+  "bar.media.rightClick": "playerctl -p spotify play-pause",
+  "menus.dashboard.shortcuts.left.shortcut3.icon": " ",
+  "menus.dashboard.shortcuts.left.shortcut1.icon": " ",
+  "menus.dashboard.shortcuts.left.shortcut2.icon": "",
+  "menus.dashboard.shortcuts.right.shortcut3.icon": "󰹑",
+  "bar.windowtitle.title_map": [
+    [
+      "kitty",
+      "",
+      "Terminal"
+    ],
+    [
+      "zen-alpha",
+      " ",
+      "Zen Browser"
+    ],
+    [
+      "webcord",
+      " ",
+      "Discord"
+    ]
+  ],
+  "menus.clock.weather.unit": "metric",
+  "menus.clock.weather.key": "2eafd78ec1f8456cbef174724242910",
+  "menus.clock.weather.location": "Amroha",
+  "menus.transition": "crossfade",
+  "menus.bluetooth.showBattery": true,
+  "menus.bluetooth.batteryState": "connected",
+  "bar.systray.customIcons": {
+    "chrome_status_icon_1": {
+      "icon": " ",
+      "color": "#e0def4"
+    },
+    "spotify-client": {
+      "icon": "󰓇",
+      "color": "#e0def4"
+    }
+  },
+  "theme.tooltip.scaling": 70,
+  "bar.customModules.netstat.rateUnit": "auto",
+  "bar.customModules.netstat.dynamicIcon": false,
+  "bar.customModules.netstat.label": true,
+  "bar.customModules.netstat.labelType": "in",
+  "bar.customModules.netstat.icon": "󰖟",
+  "menus.volume.raiseMaximumVolume": false,
+  "bar.workspaces.showWsIcons": false,
+  "bar.workspaces.showApplicationIcons": false,
+  "bar.workspaces.applicationIconOncePerWorkspace": true
+}

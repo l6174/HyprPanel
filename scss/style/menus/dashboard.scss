@@ -47,7 +47,7 @@
         .dashboard-button {
             min-width: 3em;
             min-height: 2.5em;
-
+	    border-radius: 10em;
             &:not(:last-child) {
                 margin-bottom: 0.75em;
             }
@@ -177,6 +177,7 @@
             }
 
             button {
+                border-radius: 10em;
                 background: if(
                     $bar-menus-monochrome,
                     $bar-menus-buttons-default,
@@ -220,6 +221,7 @@
             padding: 0em;
             min-height: 3em;
             min-width: 3.8em;
+            border-radius: 10em;
 
             label {
                 color: if($bar-menus-monochrome, $bar-menus-buttons-text, $bar-menus-menu-dashboard-controls-wifi-text);
@@ -499,7 +501,7 @@
                 }
 
                 block {
-                    border-radius: 0.4em;
+                    border-radius: 10em;
 
                     &.empty {
                         background: if(

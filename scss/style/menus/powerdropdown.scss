@@ -33,18 +33,18 @@
   }
 
   .power-menu-button {
-    border-radius: $bar-menus-border-radius * 0.6;
+    border-radius: $bar-menus-border-radius * 10;
 
     // This doubles the border-radius so it doesn't show up as 
     // an artifact behind the button as that has a radius as well
-    border-top-left-radius: $bar-menus-border-radius * 2;
-    border-bottom-left-radius: $bar-menus-border-radius * 2;
+    border-top-left-radius: $bar-menus-border-radius * 10;
+    border-bottom-left-radius: $bar-menus-border-radius * 10;
 
     &.no-label {
       // This doubles the border-radius so it doesn't show up as 
       // an artifact behind the button as that has a radius as well
-      border-top-right-radius: $bar-menus-border-radius * 2;
-      border-bottom-right-radius: $bar-menus-border-radius * 2;
+      border-top-right-radius: $bar-menus-border-radius * 10;
+      border-bottom-right-radius: $bar-menus-border-radius * 10;
     }
 
     &:hover {
@@ -109,8 +109,8 @@
     min-width: 3.75rem * $bar-menus-menu-power-scaling * 0.01;
     min-height: 3.75rem * $bar-menus-menu-power-scaling * 0.01;
     background: $red;
-    border-top-left-radius: $bar-menus-border-radius * 0.35;
-    border-bottom-left-radius: $bar-menus-border-radius * 0.35;
+    border-top-left-radius: $bar-menus-border-radius * 10;
+    border-bottom-left-radius: $bar-menus-border-radius * 10;
     font-size: 1.75em;
 
     &.shutdown-icon {

@@ -28,6 +28,7 @@ export default (): Window<Child, Attribute> => {
     return DropdownMenu({
         name: 'notificationsmenu',
         transition: options.menus.transition.bind('value'),
+        anchorPosition: 'right',
         child: Widget.Box({
             class_name: 'notification-menu-content',
             css: 'padding: 1px; margin: -1px;',

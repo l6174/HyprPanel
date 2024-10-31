@@ -8,5 +8,6 @@ export type DropdownMenuProps = {
     layout?: string;
     transition?: Transition | Binding<Transition>;
     exclusivity?: Exclusivity;
+    anchorPosition?: 'left' | 'right';
     fixed?: boolean;
 } & WindowProps;

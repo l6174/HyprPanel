@@ -47,7 +47,6 @@ stopRecording() {
     fi
 
     pkill -SIGINT -f gpu-screen-recorder
-
     recentFile=$(ls -t "$outputDir"/recording_*.mp4 | head -n 1)
 
     notify-send "Recording stopped" "Your recording has been saved." \

@@ -11,19 +11,35 @@ import { runAsyncCommand, throttledScrollHandler } from 'customModules/utils.js'
 const { format, icon, showIcon, showTime, rightClick, middleClick, scrollUp, scrollDown } = options.bar.clock;
 const { style } = options.theme.bar.buttons;
 
+// Set a constant for the time icon you want to use
+const TIME_ICON = ' 󰃭'; // Replace with your desired time icon
+
 const date = Variable(GLib.DateTime.new_now_local(), {
     poll: [1000, (): DateTime => GLib.DateTime.new_now_local()],
 });
 const time = Utils.derive([date, format], (c, f) => c.format(f) || '');
 
+// Format date separately from time
+const formattedDate = Utils.derive([date], (c) => c.format('%H:%M') || ''); // Adjust format as needed
+
 const Clock = (): BarBoxChild => {
+    const clockDate = Widget.Label({
+        class_name: 'bar-button-label clock-date',
+        label: formattedDate.bind(), // Use formatted date
+    });
+
     const clockTime = Widget.Label({
-        class_name: 'bar-button-label clock bar',
-        label: time.bind(),
+        class_name: 'bar-button-label clock-time',
+        label: time.bind(), // Use time
     });
 
     const clockIcon = Widget.Label({
         label: icon.bind('value'),
+        class_name: 'bar-button-icon clock txt-icon bar',
+    });
+
+    const timeIconLabel = Widget.Label({
+        label: TIME_ICON, // Use the constant time icon
         class_name: 'bar-button-icon clock txt-icon bar',
     });
 
@@ -43,13 +59,14 @@ const Clock = (): BarBoxChild => {
                 },
             ),
             children: Utils.merge([showIcon.bind('value'), showTime.bind('value')], (shIcn, shTm) => {
-                if (shIcn && !shTm) {
-                    return [clockIcon];
-                } else if (shTm && !shIcn) {
-                    return [clockTime];
+                const children = [];
+                if (shIcn) {
+                    children.push(clockIcon, clockDate);
                 }
-
-                return [clockIcon, clockTime];
+                if (shTm) {
+                    children.push(timeIconLabel, clockTime); // Add date, time icon, and time label
+                }
+                return children;
             }),
         }),
         isVisible: true,

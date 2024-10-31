@@ -62,7 +62,7 @@ const Controls = (notifs: Notifications): BoxWidget => {
                                             ? 'clear-notifications-label txt-icon removing'
                                             : 'clear-notifications-label txt-icon';
                                     }),
-                                    label: '',
+                                    label: '󰎟',
                                 }),
                             }),
                         ],
