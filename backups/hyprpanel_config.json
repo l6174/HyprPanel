@@ -183,5 +183,6 @@
   "menus.volume.raiseMaximumVolume": false,
   "bar.workspaces.showWsIcons": false,
   "bar.workspaces.showApplicationIcons": false,
-  "bar.workspaces.applicationIconOncePerWorkspace": true
+  "bar.workspaces.applicationIconOncePerWorkspace": true,
+  "bar.media.format": "{title}"
 }
