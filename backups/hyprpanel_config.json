@@ -85,7 +85,7 @@
   "theme.osd.margins": "70px 0px 0px 0px",
   "theme.osd.orientation": "horizontal",
   "theme.osd.location": "top",
-  "menus.dashboard.powermenu.avatar.image": "/home/l6174/Pictures/Profile/Image.png",
+  "menus.dashboard.powermenu.avatar.image": "",
   "theme.bar.menus.menu.dashboard.profile.radius": "10em",
   "theme.bar.menus.opacity": 100,
   "theme.bar.transparent": true,
@@ -159,8 +159,8 @@
     ]
   ],
   "menus.clock.weather.unit": "metric",
-  "menus.clock.weather.key": "2eafd78ec1f8456cbef174724242910",
-  "menus.clock.weather.location": "Amroha",
+  "menus.clock.weather.key": "",
+  "menus.clock.weather.location": "",
   "menus.transition": "crossfade",
   "menus.bluetooth.showBattery": true,
   "menus.bluetooth.batteryState": "connected",
@@ -171,6 +171,10 @@
     },
     "spotify-client": {
       "icon": "󰓇",
+      "color": "#e0def4"
+    },
+    "TelegramDesktop": {
+      "icon": "",
       "color": "#e0def4"
     }
   },
