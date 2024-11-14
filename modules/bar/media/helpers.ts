@@ -10,6 +10,18 @@ const getIconForPlayer = (playerName: string): string => {
         ['Discord', ''],
         ['Plex', '󰚺'],
         ['Spotify', '󰓇'],
+        ['Vlc', '󰕼'],
+        ['Mpv', ''],
+        ['Rhythmbox', '󰓃'],
+        ['Google Chrome', ''],
+        ['Brave Browser', '󰖟'],
+        ['Chromium', ''],
+        ['Opera', ''],
+        ['Vivaldi', '󰖟'],
+        ['Waterfox', '󰈹'],
+        ['Thorium', '󰈹'],
+        ['Zen Browser', '󰈹'],
+        ['Floorp', '󰈹'],
         ['(.*)', '󰝚'],
     ];
 
@@ -61,8 +73,13 @@ export const generateMediaLabel = (
             },
         );
 
-        const mediaLabel =
-            truncation_size.value > 0 ? truncatedLabel.substring(0, truncation_size.value) : truncatedLabel;
+        const maxLabelSize = truncation_size.value;
+
+        let mediaLabel = truncatedLabel;
+
+        if (maxLabelSize > 0 && truncatedLabel.length > maxLabelSize) {
+            mediaLabel = `${truncatedLabel.substring(0, maxLabelSize)}...`;
+        }
 
         return mediaLabel.length ? mediaLabel : 'Media';
     } else {

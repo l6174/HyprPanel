@@ -12,7 +12,7 @@
     opacity: $bar-menus-opacity * 0.01;
 
     button {
-        border-radius: 0.4em;
+        border-radius: $bar-menus-buttons-radius;
     }
 
     .dashboard-card {
@@ -502,7 +502,6 @@
 
                 block {
                     border-radius: 10em;
-
                     &.empty {
                         background: if(
                             $bar-menus-monochrome,

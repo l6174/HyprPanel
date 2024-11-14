@@ -182,6 +182,7 @@
     "theme.bar.menus.menu.media.card.color": "#1e1e2e",
     "theme.bar.menus.menu.media.background.color": "#11111b",
     "theme.bar.menus.menu.media.album": "#f5c2e8",
+    "theme.bar.menus.menu.media.timestamp": "#cdd6f4",
     "theme.bar.menus.menu.media.artist": "#94e2d6",
     "theme.bar.menus.menu.media.song": "#b4beff",
     "theme.bar.menus.tooltip.text": "#cdd6f4",
@@ -323,6 +324,7 @@
     "theme.bar.buttons.hover": "#45475a",
     "theme.bar.buttons.icon_background": "#242438",
     "theme.bar.buttons.background": "#242438",
+    "theme.bar.buttons.borderColor": "#b4befe",
     "theme.bar.buttons.style": "default",
     "theme.bar.background": "#11111b",
     "theme.osd.label": "#b4beff",
@@ -342,5 +344,10 @@
     "theme.notification.actions.text": "#181825",
     "theme.notification.actions.background": "#b4befd",
     "theme.notification.background": "#181826",
-    "theme.bar.border.color": "#b4befe"
+    "theme.bar.border.color": "#b4befe",
+    "theme.bar.buttons.modules.hyprsunset.icon": "#242438",
+    "theme.bar.buttons.modules.hyprsunset.background": "#fab387",
+    "theme.bar.buttons.modules.hyprsunset.icon_background": "#fab387",
+    "theme.bar.buttons.modules.hyprsunset.text": "#242438",
+    "theme.bar.buttons.modules.hyprsunset.border": "#fab387"
 }

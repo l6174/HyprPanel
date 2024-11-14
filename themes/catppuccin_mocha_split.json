@@ -7,6 +7,7 @@
     "theme.bar.buttons.text": "#b4befe",
     "theme.bar.buttons.hover": "#45475a",
     "theme.bar.buttons.background": "#242438",
+    "theme.bar.buttons.borderColor": "#b4befe",
     "theme.bar.menus.text": "#cdd6f4",
     "theme.bar.menus.border.color": "#313244",
     "theme.bar.buttons.media.background": "#242438",
@@ -171,6 +172,7 @@
     "theme.bar.menus.menu.media.album": "#f5c2e8",
     "theme.bar.menus.menu.media.artist": "#94e2d6",
     "theme.bar.menus.menu.media.song": "#b4beff",
+    "theme.bar.menus.menu.media.timestamp": "#cdd6f4",
     "theme.bar.menus.tooltip.text": "#cdd6f4",
     "theme.bar.menus.tooltip.background": "#11111b",
     "theme.bar.menus.dropdownmenu.divider": "#1e1e2e",
@@ -342,6 +344,10 @@
     "theme.bar.menus.menu.network.switch.enabled": "#cba6f7",
     "theme.bar.menus.menu.network.switch.disabled": "#313245",
     "theme.bar.menus.menu.network.switch.puck": "#454759",
-    "theme.bar.border.color": "#b4befe"
+    "theme.bar.border.color": "#b4befe",
+    "theme.bar.buttons.modules.hyprsunset.icon_background": "#fab387",
+    "theme.bar.buttons.modules.hyprsunset.background": "#242438",
+    "theme.bar.buttons.modules.hyprsunset.icon": "#242438",
+    "theme.bar.buttons.modules.hyprsunset.text": "#fab387",
+    "theme.bar.buttons.modules.hyprsunset.border": "#fab387"
 }
-
