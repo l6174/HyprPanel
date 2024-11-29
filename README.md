@@ -1,3 +1,9 @@
+# 🚧 Migrating to Astal and AGSv2 🚧
+
+Hyprpanel is upgrading to AGSv2 and Astal
+
+🔧 No new features or most bugs will be worked on until migration is complete.
+
 <p align="center">
   <a href="https://hyprpanel.com" target="_blank" rel="noopener noreferrer">
     <img width="180" src="./assets/hyprpanel.png" alt="Hyprpanel logo">
@@ -90,6 +96,9 @@ hyprpicker
 ## To enable hyprland's very own blue light filter
 hyprsunset
 
+## To enable hyprland's very own idle inhibitor
+hypridle
+
 ## To click resource/stat bars in the dashboard and open btop
 btop
 
@@ -111,7 +120,7 @@ sudo pacman -S pipewire libgtop bluez bluez-utils btop networkmanager dart-sass 
 AUR:
 
 ```bash
-yay -S grimblast-git gpu-screen-recorder hyprpicker matugen-bin python-gpustat aylurs-gtk-shell-git hyprsunset-git
+yay -S grimblast-git gpu-screen-recorder hyprpicker matugen-bin python-gpustat aylurs-gtk-shell-git hyprsunset-git hypridle-git
 ```
 
 ### Fedora

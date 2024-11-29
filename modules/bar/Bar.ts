@@ -25,6 +25,7 @@ import {
     Weather,
     Power,
     Hyprsunset,
+    Hypridle,
 } from './Exports';
 
 import { BarItemBox as WidgetContainer } from '../shared/barItemBox.js';
@@ -34,7 +35,7 @@ import Button from 'types/widgets/button.js';
 import Gtk from 'types/@girs/gtk-3.0/gtk-3.0.js';
 
 import './SideEffects';
-import { BarLayout, WindowLayer } from 'lib/types/options.js';
+import { BarLayout, BarLayouts, WindowLayer } from 'lib/types/options.js';
 import { Attribute, Child } from 'lib/types/widget.js';
 import Window from 'types/widgets/window.js';
 
@@ -42,39 +43,7 @@ const { layouts } = options.bar;
 const { location } = options.theme.bar;
 const { location: borderLocation } = options.theme.bar.border;
 
-export type BarWidget = keyof typeof widget;
-
-type Section =
-    | 'battery'
-    | 'dashboard'
-    | 'workspaces'
-    | 'windowtitle'
-    | 'media'
-    | 'notifications'
-    | 'volume'
-    | 'network'
-    | 'bluetooth'
-    | 'clock'
-    | 'ram'
-    | 'cpu'
-    | 'cputemp'
-    | 'storage'
-    | 'netstat'
-    | 'kbinput'
-    | 'updates'
-    | 'submap'
-    | 'weather'
-    | 'power'
-    | 'systray'
-    | 'hyprsunset';
-
-type Layout = {
-    left: Section[];
-    middle: Section[];
-    right: Section[];
-};
-
-const getLayoutForMonitor = (monitor: number, layouts: BarLayout): Layout => {
+const getLayoutForMonitor = (monitor: number, layouts: BarLayouts): BarLayout => {
     const matchingKey = Object.keys(layouts).find((key) => key === monitor.toString());
     const wildcard = Object.keys(layouts).find((key) => key === '*');
 
@@ -93,7 +62,7 @@ const getLayoutForMonitor = (monitor: number, layouts: BarLayout): Layout => {
     };
 };
 
-const isLayoutEmpty = (layout: Layout): boolean => {
+const isLayoutEmpty = (layout: BarLayout): boolean => {
     const isLeftSectionEmpty = !Array.isArray(layout.left) || layout.left.length === 0;
     const isRightSectionEmpty = !Array.isArray(layout.right) || layout.right.length === 0;
     const isMiddleSectionEmpty = !Array.isArray(layout.middle) || layout.middle.length === 0;
@@ -124,6 +93,7 @@ const widget = {
     weather: (): Button<Child, Attribute> => WidgetContainer(Weather()),
     power: (): Button<Child, Attribute> => WidgetContainer(Power()),
     hyprsunset: (): Button<Child, Attribute> => WidgetContainer(Hyprsunset()),
+    hypridle: (): Button<Child, Attribute> => WidgetContainer(Hypridle()),
 };
 
 type GdkMonitors = {

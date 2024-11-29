@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type Application } from 'types/service/applications';
-import { NotificationAnchor } from './types/options';
+import { BarModule, NotificationAnchor } from './types/options';
 import { OSDAnchor } from 'lib/types/options';
 import icons, { substitutes } from './icons';
 import Gtk from 'gi://Gtk?version=3.0';
@@ -13,8 +13,33 @@ import { Window } from 'types/@girs/gtk-3.0/gtk-3.0.cjs';
 import { namedColors } from './constants/colors';
 import { distroIcons } from './constants/distro';
 import { distro } from './variables';
+const battery = await Service.import('battery');
+import options from 'options';
 
 export type Binding<T> = import('types/service').Binding<any, any, T>;
+
+/**
+ * Retrieves all unique layout items from the bar options.
+ *
+ * @returns An array of unique layout items.
+ */
+export const getLayoutItems = (): BarModule[] => {
+    const { layouts } = options.bar;
+
+    const itemsInLayout: BarModule[] = [];
+
+    Object.keys(layouts.value).forEach((monitor) => {
+        const leftItems = layouts.value[monitor].left;
+        const rightItems = layouts.value[monitor].right;
+        const middleItems = layouts.value[monitor].middle;
+
+        itemsInLayout.push(...leftItems);
+        itemsInLayout.push(...middleItems);
+        itemsInLayout.push(...rightItems);
+    });
+
+    return [...new Set(itemsInLayout)];
+};
 
 /**
  * @returns substitute icon || name || fallback icon
@@ -200,3 +225,22 @@ export function getDistroIcon(): string {
     const icon = distroIcons.find(([id]) => id === distro.id);
     return icon ? icon[1] : ''; // default icon if not found
 }
+
+export const warnOnLowBattery = (): void => {
+    battery.connect('notify::percent', () => {
+        const { lowBatteryThreshold, lowBatteryNotification, lowBatteryNotificationText, lowBatteryNotificationTitle } =
+            options.menus.power;
+        if (!lowBatteryNotification.value || battery.charging) return;
+        const lowThreshold = lowBatteryThreshold.value;
+
+        if (battery.percent === lowThreshold || battery.percent === lowThreshold / 2) {
+            Notify({
+                summary: lowBatteryNotificationTitle.value.replace('/$POWER_LEVEL/g', battery.percent.toString()),
+                body: lowBatteryNotificationText.value.replace('/$POWER_LEVEL/g', battery.percent.toString()),
+                iconName: icons.ui.warning,
+                urgency: 'critical',
+                timeout: 7000,
+            });
+        }
+    });
+};
