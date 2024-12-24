@@ -29,7 +29,7 @@ export const ClearNotificationsButton = (): JSX.Element => {
                         ? 'clear-notifications-label txt-icon removing'
                         : 'clear-notifications-label txt-icon';
                 })}
-                label={''}
+                label={'󰎟'}
             />
         </button>
     );

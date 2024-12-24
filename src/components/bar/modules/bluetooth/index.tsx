@@ -21,7 +21,7 @@ const Bluetooth = (): BarBoxChild => {
         const connectDevices = devices.filter((device) => device.connected);
 
         const label =
-            isPowered && connectDevices.length ? ` Connected (${connectDevices.length})` : isPowered ? 'On' : 'Off';
+            isPowered && connectDevices.length ? `${connectDevices[0].alias}` : isPowered ? 'On' : 'Off';
 
         return <label label={label} className={'bar-button-label bluetooth'} />;
     };

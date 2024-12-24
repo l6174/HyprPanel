@@ -33,7 +33,7 @@ export default ({
             keymode={Astal.Keymode.ON_DEMAND}
             exclusivity={exclusivity}
             layer={Astal.Layer.TOP}
-            anchor={bind(location).as((ln) => {
+            anchor={bind(location).as((ln, right) => {
                 if (locationMap[ln] === Astal.WindowAnchor.TOP) {
                     return Astal.WindowAnchor.TOP | Astal.WindowAnchor.LEFT;
                 }

@@ -40,6 +40,8 @@
         border-radius: 0em;
         border-bottom-left-radius: $notification-border_radius;
         border-top-left-radius: $notification-border_radius;
+        border-bottom-right-radius: $notification-border_radius;
+        border-top-right-radius: $notification-border_radius;
         margin: 0em;
     }
 
@@ -140,7 +142,7 @@
 
     .clear-notifications-label {
         color: if($bar-menus-monochrome, $bar-menus-buttons-default, $bar-menus-menu-notifications-clear);
-        font-size: 1.5em * $bar-menus-menu-notifications-scaling * 0.01;
+        font-size: 2em * $bar-menus-menu-notifications-scaling * 0.01;
 
         &.removing {
             color: $bar-menus-buttons-disabled;

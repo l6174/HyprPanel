@@ -9,7 +9,7 @@ export const CloseButton = ({ notification }: CloseButtonProps): JSX.Element => 
                 notification.dismiss();
             }}
         >
-            <label className={'txt-icon notification-close'} label={'󰅜'} halign={Gtk.Align.CENTER}></label>
+            <label className={'txt-icon notification-close'} label={'󰅙'} halign={Gtk.Align.CENTER}></label>
         </button>
     );
 };

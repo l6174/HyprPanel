@@ -12,10 +12,13 @@ const { format, icon, showIcon, showTime, rightClick, middleClick, scrollUp, scr
 const { style } = options.theme.bar.buttons;
 
 const time = Variable.derive([systemTime, format], (c, f) => c.format(f) || '');
+const date = Variable.derive([systemTime], (c, f) => c.format('%H:%M') || '');
 
 const Clock = (): BarBoxChild => {
     const clockTime = <label className={'bar-button-label clock bar'} label={bind(time)} />;
     const clockIcon = <label className={'bar-button-icon clock txt-icon bar'} label={bind(icon)} />;
+    const calendarIcon = <label className={'bar-button-icon clock txt-icon bar'} label={' 󰃭'} />;
+    const calendarDate = <label className={'bar-button-label clock bar'} label={bind(date)} />;
 
     const componentClassName = Variable.derive(
         [bind(style), bind(showIcon), bind(showTime)],
@@ -36,7 +39,7 @@ const Clock = (): BarBoxChild => {
         } else if (shTm && !shIcn) {
             return [clockTime];
         }
-        return [clockIcon, clockTime];
+        return [clockIcon, calendarDate, calendarIcon, clockTime];
     });
 
     const component = (

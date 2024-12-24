@@ -16,6 +16,8 @@
         }
 
         &.active {
+            min-width: $bar-buttons-workspaces-pill-active_width;
+            min-height: $bar-buttons-workspaces-pill-height;
         }
 
         &.workspace-icon {
