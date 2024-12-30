@@ -1,3 +1,4 @@
+import { FontStyle } from './components/settings/shared/inputs/font/utils';
 import { opt, mkOptions } from './lib/option';
 import { NetstatLabelType, RateUnit, ResourceLabelType } from './lib/types/bar';
 import { KbLabelType } from './lib/types/customModules/kbLayout';
@@ -104,6 +105,8 @@ const options = mkOptions(CONFIG, {
         font: {
             size: opt('1.2rem'),
             name: opt('Ubuntu Nerd Font'),
+            style: opt<FontStyle>('normal'),
+            label: opt('Ubuntu Nerd Font'),
             weight: opt(600),
         },
         notification: {
@@ -131,6 +134,10 @@ const options = mkOptions(CONFIG, {
             enable: opt(true),
             orientation: opt<OSDOrientation>('vertical'),
             opacity: opt(100),
+            border: {
+                size: opt('0em'),
+                color: opt(colors.lavender),
+            },
             bar_container: opt(colors.crust),
             icon_container: opt(tertiary_colors.lavender),
             bar_color: opt(tertiary_colors.lavender),
@@ -1319,6 +1326,7 @@ const options = mkOptions(CONFIG, {
         active_monitor: opt(true),
         showActionsOnHover: opt(false),
         timeout: opt(7000),
+        autoDismiss: opt(false),
         cache_actions: opt(true),
         clearDelay: opt(100),
     },
