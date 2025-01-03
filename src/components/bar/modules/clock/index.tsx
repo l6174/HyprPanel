@@ -34,9 +34,9 @@ const Clock = (): BarBoxChild => {
 
     const componentChildren = Variable.derive([bind(showIcon), bind(showTime)], (shIcn, shTm) => {
         if (shIcn && !shTm) {
-            return [clockIcon];
+            return <ClockIcon />;
         } else if (shTm && !shIcn) {
-            return [clockTime];
+            return <ClockTime />;
         }
         return [clockIcon, calendarDate, calendarIcon, clockTime];
     });
