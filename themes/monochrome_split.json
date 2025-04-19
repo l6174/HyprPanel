@@ -361,5 +361,15 @@
   "theme.bar.buttons.modules.cava.background": "#090909",
   "theme.bar.buttons.modules.cava.icon": "#21252b",
   "theme.bar.buttons.modules.cava.icon_background": "#FFFFFF",
-  "theme.bar.buttons.modules.cava.border": "#FFFFFF"
+  "theme.bar.buttons.modules.cava.border": "#FFFFFF",
+  "theme.bar.buttons.modules.microphone.border": "#ffffff",
+  "theme.bar.buttons.modules.microphone.background": "#090909",
+  "theme.bar.buttons.modules.microphone.text": "#ffffff",
+  "theme.bar.buttons.modules.microphone.icon": "#090909",
+  "theme.bar.buttons.modules.microphone.icon_background": "#ffffff",
+  "theme.bar.buttons.modules.worldclock.text": "#FFFFFF",
+  "theme.bar.buttons.modules.worldclock.background": "#090909",
+  "theme.bar.buttons.modules.worldclock.icon": "#000000",
+  "theme.bar.buttons.modules.worldclock.icon_background": "#ffffff",
+  "theme.bar.buttons.modules.worldclock.border": "#FFFFFF"
 }

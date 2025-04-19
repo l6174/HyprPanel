@@ -35,7 +35,7 @@ export const BarTheme = (): JSX.Element => {
                 <Option opt={options.theme.bar.border.color} title="Bar Border Color" type="color" />
                 <Option
                     opt={options.theme.bar.buttons.opacity}
-                    title="Button Opacity"
+                    title="Module Opacity"
                     type="number"
                     increment={5}
                     min={0}
@@ -70,9 +70,16 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
+
+                {/* Separator Section */}
+                <Header title="Separator" />
+                <Option opt={options.theme.bar.buttons.separator.color} title="Color" type="color" />
 
                 {/* Dashboard Button Section */}
                 <Header title="Dashboard Button" />
@@ -115,7 +122,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.windowtitle.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.windowtitle.border} title="Border" type="color" />
@@ -128,7 +138,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.media.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.media.border} title="Border" type="color" />
@@ -141,7 +154,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.volume.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.volume.border} title="Border" type="color" />
@@ -154,7 +170,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.network.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.network.border} title="Border" type="color" />
@@ -167,7 +186,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.bluetooth.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.bluetooth.border} title="Border" type="color" />
@@ -186,7 +208,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.battery.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.battery.border} title="Border" type="color" />
@@ -199,7 +224,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.clock.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.clock.border} title="Border" type="color" />
@@ -212,7 +240,10 @@ export const BarTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.notifications.icon_background}
                     title="Button Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.notifications.border} title="Border" type="color" />

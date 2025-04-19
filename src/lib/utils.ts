@@ -11,6 +11,20 @@ import options from '../options';
 import { Astal, Gdk, Gtk } from 'astal/gtk3';
 import AstalApps from 'gi://AstalApps?version=0.1';
 import { exec, execAsync } from 'astal/process';
+import AstalNotifd from 'gi://AstalNotifd?version=0.1';
+import { Primitive } from './types/utils';
+
+const notifdService = AstalNotifd.get_default();
+
+/**
+ * Checks if a value is a primitive type.
+ *
+ * @param value - The value to check
+ * @returns True if the value is a primitive (null, undefined, string, number, boolean, symbol, or bigint)
+ */
+export function isPrimitive(value: unknown): value is Primitive {
+    return value === null || (typeof value !== 'object' && typeof value !== 'function');
+}
 
 /**
  * Handles errors by throwing a new Error with a message.
@@ -99,7 +113,8 @@ export function icon(name: string | null, fallback = icons.missing): string {
 
     if (lookUpIcon(icon)) return icon;
 
-    console.log(`no icon substitute "${icon}" for "${name}", fallback: "${fallback}"`);
+    console.log(`No icon substitute "${icon}" for "${name}", fallback: "${fallback}"`);
+
     return fallback;
 }
 
@@ -151,9 +166,10 @@ export async function sh(cmd: string | string[]): Promise<string> {
  *
  * @returns An array of JSX elements, one for each monitor.
  */
-export function forMonitors(widget: (monitor: number) => JSX.Element): JSX.Element[] {
+export async function forMonitors(widget: (monitor: number) => Promise<JSX.Element>): Promise<JSX.Element[]> {
     const n = Gdk.Display.get_default()?.get_n_monitors() || 1;
-    return range(n, 0).flatMap(widget);
+
+    return Promise.all(range(n, 0).map(widget));
 }
 
 /**
@@ -270,6 +286,12 @@ export function normalizePath(path: string): string {
  * @param notifPayload The notification arguments containing summary, body, appName, iconName, urgency, timeout, category, transient, and id.
  */
 export function Notify(notifPayload: NotificationArgs): void {
+    // This line does nothing useful at runtime, but when bundling, it
+    // ensures that notifdService has been instantiated and, as such,
+    // that the notification daemon is active and the notification
+    // will be handled
+    notifdService; // eslint-disable-line @typescript-eslint/no-unused-expressions
+
     let command = 'notify-send';
     command += ` "${notifPayload.summary} "`;
     if (notifPayload.body) command += ` "${notifPayload.body}" `;

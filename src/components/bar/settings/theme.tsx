@@ -7,13 +7,33 @@ import { Gtk } from 'astal/gtk3';
 export const CustomModuleTheme = (): JSX.Element => {
     return (
         <scrollable
-            name={'Custom Modules'}
+            name={'Basic Modules'}
             className="menu-theme-page customModules paged-container"
             vscroll={Gtk.PolicyType.AUTOMATIC}
             hscroll={Gtk.PolicyType.AUTOMATIC}
             vexpand={false}
         >
             <box vertical>
+                {/* Microphone Module Section */}
+                <Header title="Microphone" />
+                <Option opt={options.theme.bar.buttons.modules.microphone.text} title="Text" type="color" />
+                <Option opt={options.theme.bar.buttons.modules.microphone.icon} title="Icon" type="color" />
+                <Option
+                    opt={options.theme.bar.buttons.modules.microphone.background}
+                    title="Label Background"
+                    type="color"
+                />
+                <Option
+                    opt={options.theme.bar.buttons.modules.microphone.icon_background}
+                    title="Icon Background"
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
+                    type="color"
+                />
+                <Option opt={options.theme.bar.buttons.modules.microphone.border} title="Border" type="color" />
+
                 {/* RAM Module Section */}
                 <Header title="RAM" />
                 <Option opt={options.theme.bar.buttons.modules.ram.text} title="Text" type="color" />
@@ -22,7 +42,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.ram.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.ram.border} title="Border" type="color" />
@@ -35,7 +58,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.cpu.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.cpu.border} title="Border" type="color" />
@@ -52,7 +78,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.cpuTemp.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.cpuTemp.border} title="Border" type="color" />
@@ -69,7 +98,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.storage.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.storage.border} title="Border" type="color" />
@@ -86,7 +118,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.netstat.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.netstat.border} title="Border" type="color" />
@@ -103,7 +138,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.kbLayout.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.kbLayout.border} title="Border" type="color" />
@@ -120,7 +158,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.updates.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.updates.border} title="Border" type="color" />
@@ -137,7 +178,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.submap.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.submap.border} title="Border" type="color" />
@@ -154,7 +198,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.weather.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.weather.border} title="Border" type="color" />
@@ -171,7 +218,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.hyprsunset.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.hyprsunset.border} title="Border" type="color" />
@@ -188,7 +238,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.hypridle.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.hypridle.border} title="Border" type="color" />
@@ -201,10 +254,33 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.cava.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.cava.border} title="Border" type="color" />
+
+                {/* World Clock Module Section */}
+                <Header title="World Clock" />
+                <Option opt={options.theme.bar.buttons.modules.worldclock.text} title="Text" type="color" />
+                <Option opt={options.theme.bar.buttons.modules.worldclock.icon} title="Icon" type="color" />
+                <Option
+                    opt={options.theme.bar.buttons.modules.worldclock.background}
+                    title="Label Background"
+                    type="color"
+                />
+                <Option
+                    opt={options.theme.bar.buttons.modules.worldclock.icon_background}
+                    title="Icon Background"
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
+                    type="color"
+                />
+                <Option opt={options.theme.bar.buttons.modules.worldclock.border} title="Border" type="color" />
 
                 {/* Power Module Section */}
                 <Header title="Power" />
@@ -217,7 +293,10 @@ export const CustomModuleTheme = (): JSX.Element => {
                 <Option
                     opt={options.theme.bar.buttons.modules.power.icon_background}
                     title="Icon Background"
-                    subtitle="Applies a background color to the icon section of the button.\nRequires 'split' button styling."
+                    subtitle={
+                        'Applies a background color to the icon section of the button.\n' +
+                        "Requires 'split' button styling."
+                    }
                     type="color"
                 />
                 <Option opt={options.theme.bar.buttons.modules.power.border} title="Border" type="color" />

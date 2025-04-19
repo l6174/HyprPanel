@@ -10,7 +10,6 @@
     border: $bar-menus-border-size solid
         if($bar-menus-monochrome, $bar-menus-border-color, $bar-menus-menu-notifications-border);
     border-radius: $bar-menus-border-radius;
-    margin-right: 0.45em;
     opacity: $bar-menus-opacity * 0.01;
 
     .window-content.notificationsmenu-window {
@@ -37,11 +36,7 @@
         min-height: 0em;
         font-size: $font-size * $bar-menus-menu-notifications-scaling * 0.01;
         border: 0.15em solid $notification-border;
-        border-radius: 0em;
-        border-bottom-left-radius: $notification-border_radius;
-        border-top-left-radius: $notification-border_radius;
-        border-bottom-right-radius: $notification-border_radius;
-        border-top-right-radius: $notification-border_radius;
+        border-radius: $notification-border_radius;
         margin: 0em;
     }
 
@@ -211,6 +206,7 @@
 
 .notification-menu-pager {
     background: $bar-menus-menu-notifications-pager-background;
+    margin-bottom: 0.1em;
     border-radius: $bar-menus-border-radius;
     border-top-left-radius: 0em;
     border-top-right-radius: 0em;

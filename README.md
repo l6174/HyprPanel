@@ -1,3 +1,7 @@
+> ⚠️ **Seeking NixOS Maintainer** ⚠️
+>
+> HyprPanel is currently looking for a NixOS maintainer to help stabilize and maintain the NixOS integration. If you have experience with Nix and would like to contribute, please reach out to me via the HyprPanel discord.
+
 # HyprPanel 🚀
 
 A panel built for Hyprland with [Astal](https://github.com/Aylur/astal)
@@ -59,16 +63,13 @@ power-profiles-daemon
 grimblast
 
 ## To record screen through the dashboard record shortcut
-gpu-screen-recorder
+wf-recorder
 
 ## To enable the eyedropper color picker with the default snapshot shortcut in the dashboard
 hyprpicker
 
 ## To enable hyprland's very own blue light filter
 hyprsunset
-
-## To enable hyprland's very own idle inhibitor
-hypridle
 
 ## To click resource/stat bars in the dashboard and open btop
 btop
@@ -91,7 +92,7 @@ pacman:
 AUR:
 
 ```bash
-yay -S --needed aylurs-gtk-shell-git grimblast-git gpu-screen-recorder-git hyprpicker matugen-bin python-gpustat hyprsunset-git hypridle-git
+yay -S --needed aylurs-gtk-shell-git grimblast-git wf-recorder-git hyprpicker matugen-bin python-gpustat hyprsunset-git
 ```
 
 ### Fedora
@@ -107,19 +108,13 @@ sudo dnf config-manager --save --setopt=copr:copr.fedorainfracloud.org:heus-sueh
 DNF:
 
 ```sh
-sudo dnf install wireplumber upower libgtop2 bluez bluez-tools grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl gnome-bluetooth aylurs-gtk-shell power-profiles-daemon gvfs nodejs
+sudo dnf install wireplumber upower libgtop2 bluez bluez-tools grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl gnome-bluetooth aylurs-gtk-shell power-profiles-daemon gvfs nodejs wf-recorder
 ```
 
 npm:
 
 ```bash
 npm install -g sass
-```
-
-flatpak:
-
-```bash
-flatpak install flathub --system com.dec05eba.gpu_screen_recorder
 ```
 
 #### Optional Dependencies

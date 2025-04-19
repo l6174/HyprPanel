@@ -1,7 +1,7 @@
-import { Option } from 'src/components/settings/shared/Option';
 import { Header } from 'src/components/settings/shared/Header';
 import options from 'src/options';
 import { Gtk } from 'astal/gtk3';
+import { Option } from 'src/components/settings/shared/Option';
 
 export const BarSettings = (): JSX.Element => {
     return (
@@ -53,6 +53,19 @@ export const BarSettings = (): JSX.Element => {
                     enums={['none', 'full', 'top', 'right', 'bottom', 'left', 'horizontal', 'vertical']}
                 />
                 <Option opt={options.theme.bar.border.width} title="Bar Border Width" type="string" />
+                <Option opt={options.theme.bar.enableShadow} title="Enable Shadow" type="boolean" />
+                <Option
+                    opt={options.theme.bar.shadow}
+                    title="Bar Shadow"
+                    subtitle="Requires that sufficient margins have been set to house the shadow."
+                    type="string"
+                />
+                <Option
+                    opt={options.theme.bar.shadowMargins}
+                    title="Bar Shadow Margins"
+                    subtitle="Margins count mouse events as clicks 'inside' the menu."
+                    type="string"
+                />
                 <Option
                     opt={options.theme.bar.border_radius}
                     title="Border Radius"
@@ -126,6 +139,11 @@ export const BarSettings = (): JSX.Element => {
                     subtitle="The speed at which the commands assigned to the scroll event will trigger"
                     type="number"
                 />
+
+                {/* Separator Section */}
+                <Header title="Separator" />
+                <Option opt={options.theme.bar.buttons.separator.margins} title="Margins" type="string" />
+                <Option opt={options.theme.bar.buttons.separator.width} title="Width" type="string" />
 
                 {/* Dashboard Section */}
                 <Header title="Dashboard" />
@@ -300,7 +318,10 @@ export const BarSettings = (): JSX.Element => {
                 <Option
                     opt={options.bar.windowtitle.title_map}
                     title="Window Title Mappings"
-                    subtitle="Requires Custom Title.\nWiki: https://hyprpanel.com/configuration/panel.html#window-title-mappings"
+                    subtitle={
+                        'Requires Custom Title.\n' +
+                        'Wiki: https://hyprpanel.com/configuration/panel.html#window-title-mappings'
+                    }
                     type="object"
                     subtitleLink="https://hyprpanel.com/configuration/panel.html#window-title-mappings"
                 />
@@ -410,14 +431,17 @@ export const BarSettings = (): JSX.Element => {
                 <Option
                     opt={options.bar.systray.ignore}
                     title="Ignore List"
-                    subtitle="Apps to ignore\nWiki: https://hyprpanel.com/configuration/panel.html#system-tray"
+                    subtitle={'Apps to ignore\n' + 'Wiki: https://hyprpanel.com/configuration/panel.html#system-tray'}
                     subtitleLink="https://hyprpanel.com/configuration/panel.html#system-tray"
                     type="object"
                 />
                 <Option
                     opt={options.bar.systray.customIcons}
                     title="Custom Systray Icons"
-                    subtitle="Define custom icons for systray.\nWiki: https://hyprpanel.com/configuration/panel.html#custom-systray-icons"
+                    subtitle={
+                        'Define custom icons for systray.\n' +
+                        'Wiki: https://hyprpanel.com/configuration/panel.html#custom-systray-icons'
+                    }
                     subtitleLink="https://hyprpanel.com/configuration/panel.html#custom-systray-icons"
                     type="object"
                 />

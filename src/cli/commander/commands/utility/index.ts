@@ -72,6 +72,44 @@ export const utilityCommands: Command[] = [
         },
     },
     {
+        name: 'isInhibiting',
+        aliases: ['isi'],
+        description: 'Returns the status of the Idle Inhibitor.',
+        category: 'Utility',
+        args: [],
+        handler: (): boolean => {
+            try {
+                return idleInhibit.get();
+            } catch (error) {
+                errorHandler(error);
+            }
+        },
+    },
+    {
+        name: 'idleInhibit',
+        aliases: ['idi'],
+        description: 'Enables/Disables the Idle Inhibitor. Toggles the Inhibitor if no parameter is provided.',
+        category: 'Utility',
+        args: [
+            {
+                name: 'shouldInhibit',
+                description: 'The boolean value that enables/disables the inhibitor.',
+                type: 'boolean',
+                required: false,
+            },
+        ],
+        handler: (args: Record<string, unknown>): boolean => {
+            try {
+                const shouldInhibit = args['shouldInhibit'] ?? !idleInhibit.get();
+                idleInhibit.set(Boolean(shouldInhibit));
+
+                return idleInhibit.get();
+            } catch (error) {
+                errorHandler(error);
+            }
+        },
+    },
+    {
         name: 'migrateConfig',
         aliases: ['mcfg'],
         description: 'Migrates the configuration file from the old location to the new one.',
@@ -82,11 +120,11 @@ export const utilityCommands: Command[] = [
 
             try {
                 const oldFile = Gio.File.new_for_path(oldPath);
-                const newFile = Gio.File.new_for_path(CONFIG);
+                const newFile = Gio.File.new_for_path(CONFIG_FILE);
 
                 if (oldFile.query_exists(null)) {
                     oldFile.move(newFile, Gio.FileCopyFlags.OVERWRITE, null, null);
-                    return `Configuration file moved to ${CONFIG}`;
+                    return `Configuration file moved to ${CONFIG_FILE}`;
                 } else {
                     return `Old configuration file does not exist at ${oldPath}`;
                 }

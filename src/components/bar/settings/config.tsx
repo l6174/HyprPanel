@@ -6,7 +6,7 @@ import { Gtk } from 'astal/gtk3';
 export const CustomModuleSettings = (): JSX.Element => {
     return (
         <scrollable
-            name={'Custom Modules'}
+            name={'Basic Modules'}
             className="menu-theme-page customModules paged-container"
             vscroll={Gtk.PolicyType.AUTOMATIC}
             hscroll={Gtk.PolicyType.AUTOMATIC}
@@ -15,6 +15,23 @@ export const CustomModuleSettings = (): JSX.Element => {
                 {/* General Section */}
                 <Header title="General" />
                 <Option opt={options.bar.customModules.scrollSpeed} title="Scrolling Speed" type="number" />
+
+                {/* Microphone Section */}
+                <Header title="Microphone" />
+                <Option
+                    opt={options.theme.bar.buttons.modules.microphone.enableBorder}
+                    title="Button Border"
+                    type="boolean"
+                />
+                <Option opt={options.bar.customModules.microphone.label} title="Show Label" type="boolean" />
+                <Option opt={options.bar.customModules.microphone.mutedIcon} title="Muted Icon" type="string" />
+                <Option opt={options.bar.customModules.microphone.unmutedIcon} title="Unmuted Icon" type="string" />
+                <Option opt={options.theme.bar.buttons.modules.microphone.spacing} title="Spacing" type="string" />
+                <Option opt={options.bar.customModules.microphone.leftClick} title="Left Click" type="string" />
+                <Option opt={options.bar.customModules.microphone.rightClick} title="Right Click" type="string" />
+                <Option opt={options.bar.customModules.microphone.middleClick} title="Middle Click" type="string" />
+                <Option opt={options.bar.customModules.microphone.scrollUp} title="Scroll Up" type="string" />
+                <Option opt={options.bar.customModules.microphone.scrollDown} title="Scroll Down" type="string" />
 
                 {/* RAM Section */}
                 <Header title="RAM" />
@@ -221,6 +238,17 @@ export const CustomModuleSettings = (): JSX.Element => {
                     type="string"
                 />
                 <Option
+                    opt={options.bar.customModules.updates.updateTooltipCommand}
+                    title="Check Updates Tooltip Command"
+                    type="string"
+                />
+                <Option
+                    opt={options.bar.customModules.updates.extendedTooltip}
+                    title="Show Extended Tooltip"
+                    subtitle="Lists packages with updates. Arch only."
+                    type="boolean"
+                />
+                <Option
                     opt={options.bar.customModules.updates.icon.pending}
                     title="Updates Available Icon"
                     type="string"
@@ -390,6 +418,31 @@ export const CustomModuleSettings = (): JSX.Element => {
                 <Option opt={options.bar.customModules.cava.middleClick} title="Middle Click" type="string" />
                 <Option opt={options.bar.customModules.cava.scrollUp} title="Scroll Up" type="string" />
                 <Option opt={options.bar.customModules.cava.scrollDown} title="Scroll Down" type="string" />
+
+                {/* World Clock Section */}
+                <Header title="World Clock" />
+                <Option
+                    opt={options.theme.bar.buttons.modules.worldclock.enableBorder}
+                    title="Button Border"
+                    type="boolean"
+                />
+                <Option opt={options.bar.customModules.worldclock.icon} title="Icon" type="string" />
+                <Option opt={options.bar.customModules.worldclock.showIcon} title="Show Icon" type="boolean" />
+                <Option opt={options.theme.bar.buttons.modules.worldclock.spacing} title="Spacing" type="string" />
+                <Option opt={options.bar.customModules.worldclock.format} title="Format" type="string" />
+                <Option
+                    opt={options.bar.customModules.worldclock.formatDiffDate}
+                    title="Cross-Day Time Format"
+                    subtitle="Format to use when the timezone is on a different calendar day than the local timezone."
+                    type="string"
+                />
+                <Option opt={options.bar.customModules.worldclock.divider} title="Date Divider" type="string" />
+                <Option opt={options.bar.customModules.worldclock.leftClick} title="Left Click" type="string" />
+                <Option opt={options.bar.customModules.worldclock.rightClick} title="Right Click" type="string" />
+                <Option opt={options.bar.customModules.worldclock.middleClick} title="Middle Click" type="string" />
+                <Option opt={options.bar.customModules.worldclock.scrollUp} title="Scroll Up" type="string" />
+                <Option opt={options.bar.customModules.worldclock.scrollDown} title="Scroll Down" type="string" />
+                <Option opt={options.bar.customModules.worldclock.tz} title="Timezones Displayed" type="object" />
 
                 {/* Power Section */}
                 <Header title="Power" />

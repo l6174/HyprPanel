@@ -1,79 +1,72 @@
-self: { lib, pkgs, config, ... }:
+self:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (lib) types mkIf mkOption mkEnableOption;
+  inherit (lib)
+    types
+    mkIf
+    mkOption
+    mkEnableOption
+    ;
 
   cfg = config.programs.hyprpanel;
 
   jsonFormat = pkgs.formats.json { };
-  
-  # No package option
-  package = if pkgs ? hyprpanel then pkgs.hyprpanel
-  else abort ''
 
-  ********************************************************************************
-  *                                  HyprPanel                                   *
-  *------------------------------------------------------------------------------*
-  *                         You didn't add the overlay!                          *
-  *                                                                              *
-  * Either set 'overlay.enable = true' or manually add it to 'nixpkgs.overlays'. *
-  * If you use the 'nixosModule' for Home Manager and have 'useGlobalPkgs' set,  *
-  *                  you will need to add the overlay yourself.                  *
-  ********************************************************************************
-  '';
+  # No package option
+  package =
+    if pkgs ? hyprpanel then
+      pkgs.hyprpanel
+    else
+      abort ''
+
+        ********************************************************************************
+        *                                  HyprPanel                                   *
+        *------------------------------------------------------------------------------*
+        *                         You didn't add the overlay!                          *
+        *                                                                              *
+        * Either set 'overlay.enable = true' or manually add it to 'nixpkgs.overlays'. *
+        * If you use the 'nixosModule' for Home Manager and have 'useGlobalPkgs' set,  *
+        *                  you will need to add the overlay yourself.                  *
+        ********************************************************************************
+      '';
 
   # Shorthand lambda for self-documenting options under settings
-  mkStrOption = default: mkOption { type = types.str; default = default; };
-  mkIntOption = default: mkOption { type = types.int; default = default; };
-  mkBoolOption = default: mkOption { type = types.bool; default = default; };
-  mkStrListOption = default: mkOption { type = types.listOf types.str; default = default; };
-  mkFloatOption = default: mkOption { type = types.float; default = default; };
+  mkStrOption =
+    default:
+    mkOption {
+      type = types.str;
+      default = default;
+    };
+  mkIntOption =
+    default:
+    mkOption {
+      type = types.int;
+      default = default;
+    };
+  mkBoolOption =
+    default:
+    mkOption {
+      type = types.bool;
+      default = default;
+    };
+  mkStrListOption =
+    default:
+    mkOption {
+      type = types.listOf types.str;
+      default = default;
+    };
+  mkFloatOption =
+    default:
+    mkOption {
+      type = types.float;
+      default = default;
+    };
 
-  # TODO: Please merge https://github.com/Jas-SinghFSU/HyprPanel/pull/497
-  #       Do not ask what these do...
-  flattenAttrs = attrSet: prefix:
-    let
-      process = key: value:
-        if builtins.isAttrs value then
-          flattenAttrs value "${prefix}${key}."
-        else
-          { "${prefix}${key}" = value; };
-    in
-      builtins.foldl' (acc: key:
-        acc // process key attrSet.${key}
-      ) {} (builtins.attrNames attrSet);
-
-  toNestedValue =
-    let
-      escapeString = s: builtins.replaceStrings [ "\"" ] [ "\\\"" ] s;
-    in
-    value:
-      if builtins.isBool value then
-        if value then "true" else "false"
-      else if (builtins.isInt value || builtins.isFloat value) then
-        builtins.toString value
-      else if builtins.isString value then
-        "\"" + escapeString value + "\""
-      else if builtins.isList value then
-        let
-          items = builtins.map toNestedValue value;
-        in
-          "[\n" + (builtins.concatStringsSep ", " items) + "\n]"
-      else if builtins.isAttrs value then
-        let
-          keys = builtins.attrNames value;
-          toKeyValue = k: "\"${k}\": ${toNestedValue value.${k}}";
-          inner = builtins.concatStringsSep ", " (builtins.map toKeyValue keys);
-        in
-          "{\n" + inner + "\n}"
-      else
-        abort "Unexpected error! Please post a new issue and @benvonh...";
-
-  toNestedObject = attrSet:
-    let
-      keys = builtins.attrNames attrSet;
-      kvPairs = builtins.map (k: "\"${k}\": ${toNestedValue attrSet.${k}}") keys;
-    in
-      "{\n  " + builtins.concatStringsSep ",\n  " kvPairs + "\n}";
 in
 {
   options.programs.hyprpanel = {
@@ -83,17 +76,10 @@ in
     systemd.enable = mkEnableOption "systemd integration";
     hyprland.enable = mkEnableOption "Hyprland integration";
     overwrite.enable = mkEnableOption "overwrite config fix";
-    
-    theme = mkOption {
-      type = types.str;
-      default = "";
-      example = "catppuccin_mocha";
-      description = "Theme to import (see ../themes/*.json)";
-    };
 
     override = mkOption {
       type = types.attrs;
-      default = {};
+      default = { };
       example = ''
         {
           theme.bar.menus.text = "#123ABC";
@@ -105,34 +91,33 @@ in
       '';
     };
 
-    layout = mkOption {
-      type = jsonFormat.type;
-      default = null;
-      example = ''
-        {
-          "bar.layouts" = {
-            "0" = {
-              left = [ "dashboard" "workspaces" "windowtitle" ];
-              middle = [ "media" ];
-              right = [ "volume" "network" "bluetooth" "battery" "systray" "clock" "notifications" ];
-            };
-            "1" = {
-              left = [ "dashboard" "workspaces" "windowtitle" ];
-              middle = [ "media" ];
-              right = [ "volume" "clock" "notifications" ];
-            };
-            "2" = {
-              left = [ "dashboard" "workspaces" "windowtitle" ];
-              middle = [ "media" ];
-              right = [ "volume" "clock" "notifications" ];
+    settings = {
+      layout = mkOption {
+        type = jsonFormat.type;
+        default = { };
+        example = ''
+          {
+            "bar.layouts" = {
+              "0" = {
+                left = [ "dashboard" "workspaces" "windowtitle" ];
+                middle = [ "media" ];
+                right = [ "volume" "network" "bluetooth" "battery" "systray" "clock" "notifications" ];
+              };
+              "1" = {
+                left = [ "dashboard" "workspaces" "windowtitle" ];
+                middle = [ "media" ];
+                right = [ "volume" "clock" "notifications" ];
+              };
+              "2" = {
+                left = [ "dashboard" "workspaces" "windowtitle" ];
+                middle = [ "media" ];
+                right = [ "volume" "clock" "notifications" ];
+              };
             };
           };
-        };
-      '';
-      description = "https://hyprpanel.com/configuration/panel.html";
-    };
-
-    settings = {
+        '';
+        description = "https://hyprpanel.com/configuration/panel.html";
+      };
       bar.autoHide = mkStrOption "never";
       bar.battery.hideLabelWhenFull = mkBoolOption false;
       bar.battery.label = mkBoolOption true;
@@ -156,7 +141,16 @@ in
       bar.customModules.cava.showIcon = mkBoolOption true;
       bar.customModules.cava.icon = mkStrOption "";
       bar.customModules.cava.spaceCharacter = mkStrOption " ";
-      bar.customModules.cava.barCharacters = mkStrListOption [ "▁" "▂" "▃" "▄" "▅" "▆" "▇" "█" ];
+      bar.customModules.cava.barCharacters = mkStrListOption [
+        "▁"
+        "▂"
+        "▃"
+        "▄"
+        "▅"
+        "▆"
+        "▇"
+        "█"
+      ];
       bar.customModules.cava.showActiveOnly = mkBoolOption false;
       bar.customModules.cava.bars = mkIntOption 10;
       bar.customModules.cava.channels = mkIntOption 2;
@@ -242,6 +236,14 @@ in
       bar.customModules.power.scrollDown = mkStrOption "";
       bar.customModules.power.scrollUp = mkStrOption "";
       bar.customModules.power.showLabel = mkBoolOption true;
+      bar.customModules.microphone.label = mkBoolOption true;
+      bar.customModules.microphone.mutedIcon = mkStrOption "󰍭";
+      bar.customModules.microphone.unmutedIcon = mkStrOption "󰍬";
+      bar.customModules.microphone.leftClick = mkStrOption "menu:audio";
+      bar.customModules.microphone.rightClick = mkStrOption "";
+      bar.customModules.microphone.middleClick = mkStrOption "";
+      bar.customModules.microphone.scrollUp = mkStrOption "";
+      bar.customModules.microphone.scrollDown = mkStrOption "";
       bar.customModules.ram.icon = mkStrOption "";
       bar.customModules.ram.label = mkBoolOption true;
       bar.customModules.ram.labelType = mkStrOption "percentage";
@@ -289,6 +291,17 @@ in
       bar.customModules.weather.scrollDown = mkStrOption "";
       bar.customModules.weather.scrollUp = mkStrOption "";
       bar.customModules.weather.unit = mkStrOption "imperial";
+      bar.customModules.worldclock.format = mkStrOption "%I:%M:%S %p %Z";
+      bar.customModules.worldclock.formatDiffDate = mkStrOption "%a %b %d  %I:%M:%S %p %Z";
+      bar.customModules.worldclock.divider = mkStrOption "  ";
+      bar.customModules.worldclock.icon = mkStrOption "󱉊";
+      bar.customModules.worldclock.middleClick = mkStrOption "";
+      bar.customModules.worldclock.rightClick = mkStrOption "";
+      bar.customModules.worldclock.scrollDown = mkStrOption "";
+      bar.customModules.worldclock.scrollUp = mkStrOption "";
+      bar.customModules.worldclock.showIcon = mkBoolOption true;
+      bar.customModules.worldclock.showTime = mkBoolOption true;
+      bar.customModules.worldclock.tz = mkStrListOption ["America/New_York" "Europe/Paris" "Asia/Tokyo"];
       bar.launcher.autoDetectIcon = mkBoolOption false;
       bar.launcher.icon = mkStrOption "󰣇";
       bar.launcher.middleClick = mkStrOption "";
@@ -319,6 +332,7 @@ in
       bar.notifications.scrollUp = mkStrOption "";
       bar.notifications.show_total = mkBoolOption false;
       bar.scrollSpeed = mkIntOption 5;
+      bar.systray.ignore = mkStrListOption [];
       bar.volume.label = mkBoolOption true;
       bar.volume.middleClick = mkStrOption "";
       bar.volume.rightClick = mkStrOption "";
@@ -354,6 +368,32 @@ in
       bar.workspaces.spacing = mkFloatOption 1.0;
       bar.workspaces.workspaceMask = mkBoolOption false;
       bar.workspaces.workspaces = mkIntOption 5;
+      bar.workspaces.workspaceIconMap = mkOption {
+        type = jsonFormat.type;
+        default = { };
+        example = ''
+        {
+          "1": "<U+EEFE>",
+          "2": "<U+F269>",
+          "3": "<U+EAC4>",
+          "4": "<U+EC1B>",
+          "5": "<U+F02B4>",
+          "6": "<U+F1FF> ",
+          "7": "<U+EB1C>"
+        }
+        '';
+      };
+      bar.workspaces.applicationIconMap = mkOption {
+        type = jsonFormat.type;
+        default = { };
+        example = ''
+        {
+            "class:kitty$":"󰆍",
+            "title:Settings":"",
+            "vivaldi":""
+        }
+        '';
+      };
       dummy = mkBoolOption true;
       hyprpanel.restartAgs = mkBoolOption true;
       # hyprpanel.restartCommand = mkStrOption "${pkgs.procps}/bin/pkill -u $USER -USR1 hyprpanel; ${package}/bin/hyprpanel";
@@ -367,15 +407,20 @@ in
       menus.clock.weather.unit = mkStrOption "imperial";
       menus.dashboard.controls.enabled = mkBoolOption true;
       menus.dashboard.directories.enabled = mkBoolOption true;
-      menus.dashboard.directories.left.directory1.command = mkStrOption "bash -c \"xdg-open $HOME/Downloads/\"";
+      menus.dashboard.directories.left.directory1.command =
+        mkStrOption "bash -c \"xdg-open $HOME/Downloads/\"";
       menus.dashboard.directories.left.directory1.label = mkStrOption "󰉍 Downloads";
-      menus.dashboard.directories.left.directory2.command = mkStrOption "bash -c \"xdg-open $HOME/Videos/\"";
+      menus.dashboard.directories.left.directory2.command =
+        mkStrOption "bash -c \"xdg-open $HOME/Videos/\"";
       menus.dashboard.directories.left.directory2.label = mkStrOption "󰉏 Videos";
-      menus.dashboard.directories.left.directory3.command = mkStrOption "bash -c \"xdg-open $HOME/Projects/\"";
+      menus.dashboard.directories.left.directory3.command =
+        mkStrOption "bash -c \"xdg-open $HOME/Projects/\"";
       menus.dashboard.directories.left.directory3.label = mkStrOption "󰚝 Projects";
-      menus.dashboard.directories.right.directory1.command = mkStrOption "bash -c \"xdg-open $HOME/Documents/\"";
+      menus.dashboard.directories.right.directory1.command =
+        mkStrOption "bash -c \"xdg-open $HOME/Documents/\"";
       menus.dashboard.directories.right.directory1.label = mkStrOption "󱧶 Documents";
-      menus.dashboard.directories.right.directory2.command = mkStrOption "bash -c \"xdg-open $HOME/Pictures/\"";
+      menus.dashboard.directories.right.directory2.command =
+        mkStrOption "bash -c \"xdg-open $HOME/Pictures/\"";
       menus.dashboard.directories.right.directory2.label = mkStrOption "󰉏 Pictures";
       menus.dashboard.directories.right.directory3.command = mkStrOption "bash -c \"xdg-open $HOME/\"";
       menus.dashboard.directories.right.directory3.label = mkStrOption "󱂵 Home";
@@ -386,6 +431,7 @@ in
       menus.dashboard.powermenu.reboot = mkStrOption "systemctl reboot";
       menus.dashboard.powermenu.shutdown = mkStrOption "systemctl poweroff";
       menus.dashboard.powermenu.sleep = mkStrOption "systemctl suspend";
+      menus.dashboard.recording.path = mkStrOption "$HOME/Videos/Screencasts";
       menus.dashboard.shortcuts.enabled = mkBoolOption true;
       menus.dashboard.shortcuts.left.shortcut1.command = mkStrOption "microsoft-edge-stable";
       menus.dashboard.shortcuts.left.shortcut1.icon = mkStrOption "󰇩";
@@ -402,7 +448,8 @@ in
       menus.dashboard.shortcuts.right.shortcut1.command = mkStrOption "sleep 0.5 && hyprpicker -a";
       menus.dashboard.shortcuts.right.shortcut1.icon = mkStrOption "";
       menus.dashboard.shortcuts.right.shortcut1.tooltip = mkStrOption "Color Picker";
-      menus.dashboard.shortcuts.right.shortcut3.command = mkStrOption "bash -c \"${../scripts/snapshot.sh}\"";
+      menus.dashboard.shortcuts.right.shortcut3.command =
+        mkStrOption "bash -c \"${../scripts/snapshot.sh}\"";
       menus.dashboard.shortcuts.right.shortcut3.icon = mkStrOption "󰄀";
       menus.dashboard.shortcuts.right.shortcut3.tooltip = mkStrOption "Screenshot";
       menus.dashboard.stats.enable_gpu = mkBoolOption false;
@@ -433,6 +480,7 @@ in
       notifications.monitor = mkIntOption 0;
       notifications.position = mkStrOption "top right";
       notifications.showActionsOnHover = mkBoolOption false;
+      notifications.ignore = mkStrListOption [ ];
       notifications.timeout = mkIntOption 7000;
       scalingPriority = mkStrOption "gdk";
       tear = mkBoolOption false;
@@ -466,6 +514,8 @@ in
       theme.bar.buttons.modules.kbLayout.enableBorder = mkBoolOption false;
       theme.bar.buttons.modules.kbLayout.spacing = mkStrOption "0.45em";
       theme.bar.buttons.modules.netstat.enableBorder = mkBoolOption false;
+      theme.bar.buttons.modules.microphone.enableBorder = mkBoolOption false;
+      theme.bar.buttons.modules.microphone.spacing = mkStrOption "0.45em";
       theme.bar.buttons.modules.netstat.spacing = mkStrOption "0.45em";
       theme.bar.buttons.modules.power.enableBorder = mkBoolOption false;
       theme.bar.buttons.modules.power.spacing = mkStrOption "0.45em";
@@ -479,6 +529,8 @@ in
       theme.bar.buttons.modules.updates.spacing = mkStrOption "0.45em";
       theme.bar.buttons.modules.weather.enableBorder = mkBoolOption false;
       theme.bar.buttons.modules.weather.spacing = mkStrOption "0.45em";
+      theme.bar.buttons.modules.worldclock.enableBorder = mkBoolOption false;
+      theme.bar.buttons.modules.worldclock.spacing = mkStrOption "0.45em";
       theme.bar.buttons.monochrome = mkBoolOption false;
       theme.bar.buttons.network.enableBorder = mkBoolOption false;
       theme.bar.buttons.network.spacing = mkStrOption "0.5em";
@@ -509,6 +561,7 @@ in
       theme.bar.buttons.workspaces.spacing = mkStrOption "0.5em";
       theme.bar.buttons.y_margins = mkStrOption "0.4em";
       theme.bar.dropdownGap = mkStrOption "2.9em";
+      theme.bar.enableShadow = mkBoolOption false;
       theme.bar.floating = mkBoolOption false;
       theme.bar.label_spacing = mkStrOption "0.5em";
       theme.bar.layer = mkStrOption "top";
@@ -520,6 +573,7 @@ in
       theme.bar.menus.border.size = mkStrOption "0.13em";
       theme.bar.menus.buttons.radius = mkStrOption "0.4em";
       theme.bar.menus.card_radius = mkStrOption "0.4em";
+      theme.bar.menus.enableShadow = mkBoolOption false;
       theme.bar.menus.menu.battery.scaling = mkIntOption 100;
       theme.bar.menus.menu.bluetooth.scaling = mkIntOption 100;
       theme.bar.menus.menu.clock.scaling = mkIntOption 100;
@@ -545,6 +599,8 @@ in
       theme.bar.menus.progressbar.radius = mkStrOption "0.3rem";
       theme.bar.menus.scroller.radius = mkStrOption "0.7em";
       theme.bar.menus.scroller.width = mkStrOption "0.25em";
+      theme.bar.menus.shadow = mkStrOption "0px 0px 3px 1px #16161e";
+      theme.bar.menus.shadowMargins = mkStrOption "5px 5px";
       theme.bar.menus.slider.progress_radius = mkStrOption "0.3rem";
       theme.bar.menus.slider.slider_radius = mkStrOption "0.3rem";
       theme.bar.menus.switch.radius = mkStrOption "0.2em";
@@ -553,6 +609,8 @@ in
       theme.bar.opacity = mkIntOption 100;
       theme.bar.outer_spacing = mkStrOption "1.6em";
       theme.bar.scaling = mkIntOption 100;
+      theme.bar.shadow = mkStrOption "0px 1px 2px 1px #16161e";
+      theme.bar.shadowMargins = mkStrOption "0px 0px 4px 0px";
       theme.bar.transparent = mkBoolOption false;
       theme.font.name = mkStrOption "Ubuntu Nerd Font";
       theme.font.size = mkStrOption "1.2rem";
@@ -562,12 +620,22 @@ in
       theme.matugen_settings.mode = mkStrOption "dark";
       theme.matugen_settings.scheme_type = mkStrOption "tonal-spot";
       theme.matugen_settings.variation = mkStrOption "standard_1";
+      theme.name = mkOption {
+        type = types.str;
+        default = "";
+        example = "catppuccin_mocha";
+        description = "Theme to import (see ../themes/*.json)";
+      };
       theme.notification.border_radius = mkStrOption "0.6em";
+      theme.notification.enableShadow = mkBoolOption false;
       theme.notification.opacity = mkIntOption 100;
       theme.notification.scaling = mkIntOption 100;
+      theme.notification.shadow = mkStrOption "0px 1px 2px 1px #16161e";
+      theme.notification.shadowMargins = mkStrOption "4px 4px";
       theme.osd.active_monitor = mkBoolOption true;
       theme.osd.duration = mkIntOption 2500;
       theme.osd.enable = mkBoolOption true;
+      theme.osd.enableShadow = mkBoolOption false;
       theme.osd.location = mkStrOption "right";
       theme.osd.margins = mkStrOption "0px 5px 0px 0px";
       theme.osd.monitor = mkIntOption 0;
@@ -577,6 +645,7 @@ in
       theme.osd.radius = mkStrOption "0.4em";
       theme.osd.border.size = mkStrOption "0em";
       theme.osd.scaling = mkIntOption 100;
+      theme.osd.shadow = mkStrOption "0px 0px 3px 2px #16161e";
       theme.tooltip.scaling = mkIntOption 100;
       wallpaper.enable = mkBoolOption true;
       wallpaper.image = mkStrOption "";
@@ -584,90 +653,99 @@ in
     };
   };
 
-  config = let
+  config =
+    let
 
-    theme =
-      if cfg.theme != ""
-      then builtins.fromJSON (builtins.readFile ../themes/${cfg.theme}.json)
-      else {};
+      theme =
+        if cfg.settings.theme.name != "" then
+          builtins.fromJSON (builtins.readFile ../themes/${cfg.settings.theme.name}.json)
+        else
+          { };
 
-    flatSet = flattenAttrs (lib.attrsets.recursiveUpdate cfg.settings theme) "";
+      flatSet = lib.attrsets.recursiveUpdate cfg.settings theme;
 
-    mergeSet = flatSet // (flattenAttrs cfg.override "");
+      mergeSet = flatSet // cfg.override;
 
-    fullSet = if cfg.layout == null then mergeSet else mergeSet // cfg.layout;
+      fullSet = if cfg.settings.layout == null then mergeSet else mergeSet // cfg.settings.layout;
 
-    finalConfig = toNestedObject fullSet;
+      finalConfig = builtins.toJSON fullSet;
 
-    hyprpanel-diff = pkgs.writeShellApplication {
-      runtimeInputs = [ pkgs.colordiff ];
-      name = "hyprpanel-diff";
-      text = ''
-        cd
-        echo '------------- HyprPanel -------------'
-        echo 'Please ignore the layout diff for now'
-        echo '-------------------------------------'
-        colordiff ${config.xdg.configFile.hyprpanel.target} \
-                  ${config.xdg.configFile.hyprpanel-swap.target}
-      '';
-    };
+      hyprpanel-diff = pkgs.writeShellApplication {
+        runtimeInputs = [ pkgs.colordiff ];
+        name = "hyprpanel-diff";
+        text = ''
+          cd
+          echo '------------- HyprPanel -------------'
+          echo 'Please ignore the layout diff for now'
+          echo '-------------------------------------'
+          colordiff ${config.xdg.configFile.hyprpanel.target} \
+                    ${config.xdg.configFile.hyprpanel-swap.target}
+        '';
+      };
 
-  in mkIf cfg.enable {
+    in
+    mkIf cfg.enable {
 
-    # nixpkgs.overlays = if cfg.overlay.enable then [ self.overlay ] else null;
-    nixpkgs.overlays = lib.optionals cfg.overlay.enable [ self.overlay ];
+      # nixpkgs.overlays = if cfg.overlay.enable then [ self.overlay ] else null;
+      nixpkgs.overlays = lib.mkIf cfg.overlay.enable [ self.overlay ];
 
-    home.packages = [
-      package
-      hyprpanel-diff
-      (if pkgs ? nerd-fonts.jetbrains-mono
-      then pkgs.nerd-fonts.jetbrains-mono
-      # NOTE:(benvonh) Remove after next release 25.05
-      else pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    ];
+      home.packages = [
+        package
+        hyprpanel-diff
+        (
+          if pkgs ? nerd-fonts.jetbrains-mono then
+            pkgs.nerd-fonts.jetbrains-mono
+          # NOTE:(benvonh) Remove after next release 25.05
+          else
+            pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }
+        )
+      ];
 
-    home.activation =
-      let
-        path = "${config.xdg.configFile.hyprpanel.target}";
-      in
+      home.activation =
+        let
+          path = "${config.xdg.configFile.hyprpanel.target}";
+        in
         mkIf cfg.overwrite.enable {
           hyprpanel = lib.hm.dag.entryBefore [ "writeBoundary" ] ''
             [[ -L "${path}" ]] || rm -f "${path}"
           '';
         };
 
-    xdg.configFile.hyprpanel = mkIf cfg.config.enable {
-      target = "hyprpanel/config.json";
-      text = finalConfig;
-      # onChange = "${pkgs.procps}/bin/pkill -u $USER -USR1 hyprpanel || true";
-      onChange = "${package}/bin/hyprpanel r";
+      xdg.configFile.hyprpanel = mkIf cfg.config.enable {
+        target = "hyprpanel/config.json";
+        text = finalConfig;
+        # onChange = "${pkgs.procps}/bin/pkill -u $USER -USR1 hyprpanel || true";
+        onChange = "${package}/bin/hyprpanel r";
+      };
+
+      xdg.configFile.hyprpanel-swap = mkIf cfg.config.enable {
+        target = "hyprpanel/config.hm.json";
+        text = finalConfig;
+      };
+
+      # NOTE: Deprecated
+      # systemd.user.services = mkIf cfg.systemd.enable {
+      #   hyprpanel = {
+      #     Unit = {
+      #       Description = "A Bar/Panel for Hyprland with extensive customizability.";
+      #       Documentation = "https://hyprpanel.com";
+      #       PartOf = [ "graphical-session.target" ];
+      #       After = [ "graphical-session-pre.target" ];
+      #     };
+      #     Service = {
+      #       ExecStart = "${package}/bin/hyprpanel";
+      #       ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
+      #       Restart = "on-failure";
+      #       KillMode = "mixed";
+      #     };
+      #     Install = { WantedBy = [ "graphical-session.target" ]; };
+      #   };
+      # };
+      warnings = if cfg.systemd.enable then [ "The `systemd.enable` option is now obsolete." ] else [ ];
+
+      wayland.windowManager.hyprland.settings.exec-once = mkIf cfg.hyprland.enable [
+        "${package}/bin/hyprpanel"
+      ];
     };
-
-    xdg.configFile.hyprpanel-swap = mkIf cfg.config.enable {
-      target = "hyprpanel/config.hm.json";
-      text = finalConfig;
-    };
-
-    # NOTE: Deprecated
-    # systemd.user.services = mkIf cfg.systemd.enable {
-    #   hyprpanel = {
-    #     Unit = {
-    #       Description = "A Bar/Panel for Hyprland with extensive customizability.";
-    #       Documentation = "https://hyprpanel.com";
-    #       PartOf = [ "graphical-session.target" ];
-    #       After = [ "graphical-session-pre.target" ];
-    #     };
-    #     Service = {
-    #       ExecStart = "${package}/bin/hyprpanel";
-    #       ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
-    #       Restart = "on-failure";
-    #       KillMode = "mixed";
-    #     };
-    #     Install = { WantedBy = [ "graphical-session.target" ]; };
-    #   };
-    # };
-    warnings = if cfg.systemd.enable then [ "The `systemd.enable` option is now obsolete." ] else [];
-
-    wayland.windowManager.hyprland.settings.exec-once = mkIf cfg.hyprland.enable [ "${package}/bin/hyprpanel" ];
-  };
 }
+
