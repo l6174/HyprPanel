@@ -22,18 +22,7 @@ let
     if pkgs ? hyprpanel then
       pkgs.hyprpanel
     else
-      abort ''
-
-        ********************************************************************************
-        *                                  HyprPanel                                   *
-        *------------------------------------------------------------------------------*
-        *                         You didn't add the overlay!                          *
-        *                                                                              *
-        * Either set 'overlay.enable = true' or manually add it to 'nixpkgs.overlays'. *
-        * If you use the 'nixosModule' for Home Manager and have 'useGlobalPkgs' set,  *
-        *                  you will need to add the overlay yourself.                  *
-        ********************************************************************************
-      '';
+      self.packages.${pkgs.stdenv.system}.wrapper;
 
   # Shorthand lambda for self-documenting options under settings
   mkStrOption =
@@ -723,25 +712,23 @@ in
         text = finalConfig;
       };
 
-      # NOTE: Deprecated
-      # systemd.user.services = mkIf cfg.systemd.enable {
-      #   hyprpanel = {
-      #     Unit = {
-      #       Description = "A Bar/Panel for Hyprland with extensive customizability.";
-      #       Documentation = "https://hyprpanel.com";
-      #       PartOf = [ "graphical-session.target" ];
-      #       After = [ "graphical-session-pre.target" ];
-      #     };
-      #     Service = {
-      #       ExecStart = "${package}/bin/hyprpanel";
-      #       ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
-      #       Restart = "on-failure";
-      #       KillMode = "mixed";
-      #     };
-      #     Install = { WantedBy = [ "graphical-session.target" ]; };
-      #   };
-      # };
-      warnings = if cfg.systemd.enable then [ "The `systemd.enable` option is now obsolete." ] else [ ];
+      systemd.user.services = mkIf cfg.systemd.enable {
+        hyprpanel = {
+          Unit = {
+            Description = "A Bar/Panel for Hyprland with extensive customizability.";
+            Documentation = "https://hyprpanel.com";
+            PartOf = [ config.wayland.systemd.target ];
+            After = [ config.wayland.systemd.target ];
+          };
+          Service = {
+            ExecStart = "${package}/bin/hyprpanel";
+            ExecReload = "${pkgs.coreutils}/bin/kill -SIGUSR1 $MAINPID";
+            Restart = "on-failure";
+            KillMode = "mixed";
+          };
+          Install = { WantedBy = [ config.wayland.systemd.target ]; };
+        };
+      };
 
       wayland.windowManager.hyprland.settings.exec-once = mkIf cfg.hyprland.enable [
         "${package}/bin/hyprpanel"

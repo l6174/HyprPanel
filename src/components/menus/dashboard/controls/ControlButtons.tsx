@@ -1,10 +1,10 @@
 import { bind } from 'astal';
-import { isPrimaryClick } from 'src/lib/utils';
 import { isWifiEnabled } from './helpers';
 import AstalNotifd from 'gi://AstalNotifd?version=0.1';
 import AstalBluetooth from 'gi://AstalBluetooth?version=0.1';
 import AstalNetwork from 'gi://AstalNetwork?version=0.1';
 import AstalWp from 'gi://AstalWp?version=0.1';
+import { isPrimaryClick } from 'src/lib/events/mouse';
 
 const wireplumber = AstalWp.get_default() as AstalWp.Wp;
 const audioService = wireplumber.audio;
@@ -18,7 +18,9 @@ const notifdService = AstalNotifd.get_default();
 export const WifiButton = (): JSX.Element => {
     return (
         <button
-            className={bind(isWifiEnabled).as((isEnabled) => `dashboard-button wifi ${!isEnabled ? 'disabled' : ''}`)}
+            className={bind(isWifiEnabled).as(
+                (isEnabled) => `dashboard-button wifi ${!isEnabled ? 'disabled' : ''}`,
+            )}
             onClick={(_, event) => {
                 if (isPrimaryClick(event)) {
                     networkService.wifi?.set_enabled(!networkService.wifi.enabled);
@@ -27,7 +29,10 @@ export const WifiButton = (): JSX.Element => {
             tooltipText={'Toggle Wifi'}
             expand
         >
-            <label className={'txt-icon'} label={bind(isWifiEnabled).as((isEnabled) => (isEnabled ? '󰤨' : '󰤭'))} />
+            <label
+                className={'txt-icon'}
+                label={bind(isWifiEnabled).as((isEnabled) => (isEnabled ? '󰤨' : '󰤭'))}
+            />
         </button>
     );
 };
@@ -68,7 +73,10 @@ export const NotificationsButton = (): JSX.Element => {
             tooltipText={'Toggle Notifications'}
             expand
         >
-            <label className={'txt-icon'} label={bind(notifdService, 'dontDisturb').as((dnd) => (dnd ? '󰂛' : '󰂚'))} />
+            <label
+                className={'txt-icon'}
+                label={bind(notifdService, 'dontDisturb').as((dnd) => (dnd ? '󰂛' : '󰂚'))}
+            />
         </button>
     );
 };
